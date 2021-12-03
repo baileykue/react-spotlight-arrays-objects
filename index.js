@@ -77,10 +77,8 @@ export const getFirstTwoArgs = (a, b, ...rest) => {
 //    return a NEW object, do not modify the object passed in to the function
 //    use spread operator to create a new object
 
-export const addSneakerCount = (obj) => {
-  let newObj = { ...obj, sneakerCount: 6 };
-
-  return newObj;
+export const addSneakerCount = ({ shoes, ...rest }) => {
+  return { ...rest, shoes, sneakerCount: shoes.length };
 };
 
 // INPUT: brands from data.js
@@ -92,13 +90,16 @@ export const getBrandNames = (obj) => {
 
 // INPUT: brands from data.js
 // OUTPUT: total number of sneaker types across all brands (14)
-export const totalSneakerCount = ({ Nike, Puma, Adidas }) => {
-  let nike = Object.keys(Nike.shoes).length;
-  let puma = Object.keys(Puma.shoes).length;
-  let adidas = Object.keys(Adidas.shoes).length;
+export const totalSneakerCount = (brands) => {
+  return Object.keys(brands).reduce((first, key) => (first += brands[key].shoes.length), 0);
 
-  let totalSneakerCount = nike + puma + adidas;
-  return totalSneakerCount;
+  //   let nike = Object.keys(Nike.shoes).length;
+
+  //   let puma = Object.keys(Puma.shoes).length;
+  //   let adidas = Object.keys(Adidas.shoes).length;
+
+  //   let totalSneakerCount = nike + puma + adidas;
+  //   return totalSneakerCount;
 };
 
 // INPUT: An object
